@@ -190,6 +190,104 @@
   color: var(--vcoder-colors-foreground-secondary);
 }
 
+/* Extensions Panel */
+.extensions-panel {
+  @apply h-full flex flex-col;
+  color: var(--vcoder-colors-ui-sidebar-foreground);
+}
+
+.extensions-header {
+  @apply flex items-center justify-between p-3 text-xs font-semibold tracking-wide uppercase;
+  color: var(--vcoder-colors-foreground-secondary);
+  border-bottom: 1px solid var(--vcoder-colors-ui-sidebar-border);
+}
+
+.extensions-content {
+  @apply flex-1 p-3 space-y-3;
+}
+
+.extensions-search input {
+  @apply w-full input text-sm;
+}
+
+.extensions-list {
+  @apply space-y-2;
+}
+
+.extension-item {
+  @apply flex items-center justify-between p-3 rounded border;
+  background-color: var(--vcoder-colors-background-tertiary);
+  border-color: var(--vcoder-colors-interactive-border);
+}
+
+.extension-info {
+  @apply flex-1;
+}
+
+.extension-name {
+  @apply font-medium text-sm;
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+.extension-rating {
+  @apply text-xs mt-1;
+  color: var(--vcoder-colors-foreground-secondary);
+}
+
+.extension-action {
+  @apply btn btn-sm;
+}
+
+.extension-action.uninstall {
+  @apply text-semantic-warning border-semantic-warning hover:bg-semantic-warning-bg;
+}
+
+/* Editor Area */
+.editor-container {
+  @apply flex-1 flex flex-col;
+  background-color: var(--vcoder-colors-ui-editor-background);
+}
+
+.editor-tabs {
+  @apply flex border-b;
+  background-color: var(--vcoder-colors-ui-tabs-inactive-bg);
+  border-color: var(--vcoder-colors-ui-tabs-border);
+}
+
+.tab {
+  @apply flex items-center gap-2 px-4 py-2 border-r cursor-pointer transition-all duration-fast;
+  background-color: var(--vcoder-colors-ui-tabs-inactive-bg);
+  color: var(--vcoder-colors-ui-tabs-inactive-fg);
+  border-color: var(--vcoder-colors-ui-tabs-border);
+}
+
+.tab:hover {
+  background-color: var(--vcoder-colors-ui-tabs-hover-bg);
+}
+
+.tab.active {
+  background-color: var(--vcoder-colors-ui-tabs-active-bg);
+  color: var(--vcoder-colors-ui-tabs-active-fg);
+  border-bottom: 2px solid var(--vcoder-colors-accent-primary);
+}
+
+.tab-icon {
+  @apply text-sm;
+}
+
+.tab-name {
+  @apply text-sm font-medium;
+}
+
+.tab-modified {
+  @apply text-accent-primary text-xs;
+}
+
+.tab-close {
+  @apply ml-2 p-1 rounded opacity-70 hover:opacity-100 hover:bg-interactive-hover transition-all duration-fast;
+  color: var(--vcoder-colors-foreground-secondary);
+}
+
 /* Sidebar */
 .sidebar {
   background-color: #252526;
