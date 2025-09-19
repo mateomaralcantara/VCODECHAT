@@ -377,6 +377,111 @@
   @apply h-px bg-foreground-tertiary mb-px;
 }
 
+/* Welcome Screen */
+.editor-welcome {
+  @apply flex-1 flex items-center justify-center;
+  background-color: var(--vcoder-colors-ui-editor-background);
+}
+
+.welcome-content {
+  @apply text-center max-w-md;
+}
+
+.welcome-content h2 {
+  @apply text-2xl font-semibold mb-4;
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+.welcome-content p {
+  @apply mb-6;
+  color: var(--vcoder-colors-foreground-secondary);
+}
+
+.welcome-actions {
+  @apply flex flex-col gap-2;
+}
+
+.welcome-actions button {
+  @apply btn justify-start;
+}
+
+/* Terminal */
+.terminal-container {
+  @apply border-t;
+  background-color: var(--vcoder-colors-ui-terminal-background);
+  border-color: var(--vcoder-colors-ui-tabs-border);
+}
+
+.terminal-resizer {
+  @apply h-1 cursor-row-resize border-t hover:border-accent-primary transition-colors duration-fast;
+  border-color: var(--vcoder-colors-ui-tabs-border);
+}
+
+.terminal-header {
+  @apply flex items-center justify-between px-4 py-2 border-b;
+  background-color: var(--vcoder-colors-background-secondary);
+  border-color: var(--vcoder-colors-ui-tabs-border);
+}
+
+.terminal-tabs {
+  @apply flex;
+}
+
+.terminal-tab {
+  @apply flex items-center gap-2 px-3 py-1 rounded-t border-b-2;
+  color: var(--vcoder-colors-foreground-secondary);
+  border-color: transparent;
+}
+
+.terminal-tab.active {
+  color: var(--vcoder-colors-foreground-primary);
+  border-color: var(--vcoder-colors-accent-primary);
+}
+
+.terminal-tab button {
+  @apply ml-2 opacity-70 hover:opacity-100 transition-opacity duration-fast;
+}
+
+.terminal-actions {
+  @apply flex gap-1;
+}
+
+.terminal-actions button {
+  @apply p-1 rounded opacity-70 hover:opacity-100 hover:bg-interactive-hover transition-all duration-fast;
+  color: var(--vcoder-colors-foreground-secondary);
+}
+
+.terminal-content {
+  @apply p-4 font-mono text-sm h-full overflow-y-auto custom-scrollbar;
+  background-color: var(--vcoder-colors-ui-terminal-background);
+  color: var(--vcoder-colors-ui-terminal-foreground);
+}
+
+.terminal-line {
+  @apply leading-5 mb-1;
+}
+
+.terminal-line.command {
+  color: var(--vcoder-colors-accent-primary);
+}
+
+.terminal-line.output {
+  color: var(--vcoder-colors-ui-terminal-foreground);
+}
+
+.terminal-input {
+  @apply flex items-center gap-2 mt-2;
+}
+
+.terminal-prompt {
+  color: var(--vcoder-colors-accent-primary);
+}
+
+.terminal-input input {
+  @apply flex-1 bg-transparent border-none outline-none font-mono text-sm;
+  color: var(--vcoder-colors-ui-terminal-foreground);
+}
+
 /* Sidebar */
 .sidebar {
   background-color: #252526;
