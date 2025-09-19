@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { CompactThemeSwitcher } from './ThemeSettings.js';
 
 // Activity Bar Component
 export const ActivityBar = ({ activeView, onViewChange, onChatToggle, onAIGeneratorToggle }) => {
