@@ -166,6 +166,8 @@ exampleFunction();`
           }
         }, 100);
       }, 2000);
+    };
+  }, []);
   const [sidebarWidth, setSidebarWidth] = useState(300);
   const [terminalHeight, setTerminalHeight] = useState(200);
   const [currentCode, setCurrentCode] = useState('');
