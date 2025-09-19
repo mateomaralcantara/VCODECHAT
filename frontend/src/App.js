@@ -161,6 +161,40 @@ function App() {
 
   return (
     <div className="vscode-container" onKeyDown={handleKeyDown}>
+      
+      {/* Simple Chat Mode */}
+      <div id="simple-chat" className="simple-chat-mode" style={{display: 'none'}}>
+        <div className="simple-chat-box">
+          <button className="simple-chat-close" onClick={() => {
+            document.getElementById('simple-chat').style.display = 'none';
+            document.body.classList.remove('chat-active');
+          }}>✕</button>
+          
+          <div className="simple-chat-title">VCoder AI Chat</div>
+          
+          <textarea 
+            className="simple-chat-input" 
+            placeholder="Escribe tu pregunta aquí... ¿Qué necesitas ayuda con tu código?"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && e.ctrlKey) {
+                alert('Mensaje enviado: ' + e.target.value);
+                e.target.value = '';
+              }
+            }}
+          ></textarea>
+          
+          <button className="simple-chat-button" onClick={(e) => {
+            const input = e.target.parentElement.querySelector('textarea');
+            if(input.value.trim()) {
+              alert('Mensaje enviado: ' + input.value);
+              input.value = '';
+            }
+          }}>
+            Enviar mensaje (Ctrl+Enter)
+          </button>
+        </div>
+      </div>
+
       {chatModeActive ? (
         <ChatMode onClose={() => setChatModeActive(false)} />
       ) : (
@@ -244,8 +278,30 @@ function App() {
         </>
       )}
       
-      {/* Floating Chat Toggle Button */}
-      <ChatToggle />
+      {/* Simple Chat Toggle Button */}
+      <button 
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          width: '60px',
+          height: '60px',
+          borderRadius: '50%',
+          background: '#8b5cf6',
+          border: 'none',
+          color: 'white',
+          fontSize: '24px',
+          cursor: 'pointer',
+          zIndex: 1000,
+          boxShadow: '0 4px 12px rgba(139, 92, 246, 0.4)'
+        }}
+        onClick={() => {
+          document.getElementById('simple-chat').style.display = 'flex';
+          document.body.classList.add('chat-active');
+        }}
+      >
+        💬
+      </button>
     </div>
   );
 }
