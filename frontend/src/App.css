@@ -1,65 +1,30 @@
-/* VSCode Clone Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* VCoder App Styles - Using Design System */
+/* Specific component styles that extend the base design system */
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #1e1e1e;
-  color: #cccccc;
-  overflow: hidden;
-}
-
+/* VSCode Layout Components */
 .vscode-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  @apply font-ui text-sm;
 }
 
-.vscode-layout {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-}
-
-/* Activity Bar */
+/* Activity Bar - Enhanced with VCoder theming */
 .activity-bar {
-  width: 48px;
-  background-color: #333333;
-  border-right: 1px solid #2d2d30;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 8px 0;
-}
-
-.activity-items {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  background-color: var(--vcoder-colors-ui-activity-bar-background);
+  border-right: 1px solid var(--vcoder-colors-ui-activity-bar-border);
 }
 
 .activity-item {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 18px;
+  @apply transition-all duration-fast ease-out;
+  color: var(--vcoder-colors-ui-activity-bar-foreground);
 }
 
 .activity-item:hover {
-  background-color: #2a2d2e;
+  background-color: var(--vcoder-colors-interactive-hover);
+  color: var(--vcoder-colors-ui-activity-bar-activeForeground);
 }
 
 .activity-item.active {
-  background-color: #37373d;
-  border-left: 2px solid #007acc;
+  background-color: var(--vcoder-colors-ui-activity-bar-activeBackground);
+  color: var(--vcoder-colors-ui-activity-bar-activeForeground);
 }
 
 /* Sidebar */
