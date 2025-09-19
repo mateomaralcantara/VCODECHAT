@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
+import { ChatMode } from './components/ChatMode';
 import { 
   ActivityBar, 
   SideBar, 
