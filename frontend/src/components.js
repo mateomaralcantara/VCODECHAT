@@ -2,13 +2,21 @@ import React, { useState, useRef, useEffect } from 'react';
 
 // Compact theme switcher component
 const CompactThemeSwitcher = () => {
-  // We'll use a simple state since we don't have useTheme yet
-  const [currentTheme, setCurrentTheme] = useState('dark');
+  const [currentTheme, setCurrentTheme] = useState(() => {
+    // Check localStorage or use default
+    return localStorage.getItem('vcoder-theme') || 'dark';
+  });
   
   const themeIcons = {
     'dark': '🌙',
-    'light': '☀️',
+    'light': '☀️',  
     'high-contrast': '🔆'
+  };
+
+  const themeLabels = {
+    'dark': 'VCoder Dark',
+    'light': 'VCoder Light',
+    'high-contrast': 'VCoder High Contrast'
   };
 
   const nextTheme = {
@@ -17,29 +25,164 @@ const CompactThemeSwitcher = () => {
     'high-contrast': 'dark'
   };
 
+  // Apply theme colors to CSS custom properties
+  const applyThemeColors = (themeType) => {
+    const root = document.documentElement;
+    
+    if (themeType === 'light') {
+      // VCoder Light theme colors
+      root.style.setProperty('--vcoder-colors-background-primary', '#ffffff');
+      root.style.setProperty('--vcoder-colors-background-secondary', '#f6f8fa');
+      root.style.setProperty('--vcoder-colors-background-tertiary', '#f1f3f4');
+      root.style.setProperty('--vcoder-colors-foreground-primary', '#1f2328');
+      root.style.setProperty('--vcoder-colors-foreground-secondary', '#656d76');
+      root.style.setProperty('--vcoder-colors-foreground-tertiary', '#8c959f');
+      root.style.setProperty('--vcoder-colors-accent-primary', '#0969da');
+      root.style.setProperty('--vcoder-colors-accent-secondary', '#0550ae');
+      root.style.setProperty('--vcoder-colors-interactive-hover', 'rgba(9, 105, 218, 0.1)');
+      root.style.setProperty('--vcoder-colors-interactive-border', '#d1d9e0');
+      
+      // UI Components
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-background', '#f6f8fa');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-foreground', '#656d76');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-activeForeground', '#1f2328');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-activeBackground', 'rgba(9, 105, 218, 0.2)');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-border', '#d1d9e0');
+      
+      root.style.setProperty('--vcoder-colors-ui-sidebar-background', '#f6f8fa');
+      root.style.setProperty('--vcoder-colors-ui-sidebar-foreground', '#656d76');
+      root.style.setProperty('--vcoder-colors-ui-sidebar-border', '#d1d9e0');
+      
+      root.style.setProperty('--vcoder-colors-ui-editor-background', '#ffffff');
+      root.style.setProperty('--vcoder-colors-ui-editor-foreground', '#1f2328');
+      
+      root.style.setProperty('--vcoder-colors-ui-status-bar-background', '#f6f8fa');
+      root.style.setProperty('--vcoder-colors-ui-status-bar-foreground', '#656d76');
+      root.style.setProperty('--vcoder-colors-ui-status-bar-border', '#d1d9e0');
+      
+    } else if (themeType === 'high-contrast') {
+      // VCoder High Contrast theme colors
+      root.style.setProperty('--vcoder-colors-background-primary', '#000000');
+      root.style.setProperty('--vcoder-colors-background-secondary', '#000000');
+      root.style.setProperty('--vcoder-colors-background-tertiary', '#1a1a1a');
+      root.style.setProperty('--vcoder-colors-foreground-primary', '#ffffff');
+      root.style.setProperty('--vcoder-colors-foreground-secondary', '#ffffff');
+      root.style.setProperty('--vcoder-colors-foreground-tertiary', '#ffffff');
+      root.style.setProperty('--vcoder-colors-accent-primary', '#ffff00');
+      root.style.setProperty('--vcoder-colors-accent-secondary', '#00ffff');
+      root.style.setProperty('--vcoder-colors-interactive-hover', 'rgba(255, 255, 0, 0.3)');
+      root.style.setProperty('--vcoder-colors-interactive-border', '#ffffff');
+      
+      // UI Components
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-background', '#000000');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-foreground', '#ffffff');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-activeForeground', '#ffff00');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-activeBackground', 'rgba(255, 255, 0, 0.3)');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-border', '#ffffff');
+      
+      root.style.setProperty('--vcoder-colors-ui-sidebar-background', '#000000');
+      root.style.setProperty('--vcoder-colors-ui-sidebar-foreground', '#ffffff');
+      root.style.setProperty('--vcoder-colors-ui-sidebar-border', '#ffffff');
+      
+      root.style.setProperty('--vcoder-colors-ui-editor-background', '#000000');
+      root.style.setProperty('--vcoder-colors-ui-editor-foreground', '#ffffff');
+      
+      root.style.setProperty('--vcoder-colors-ui-status-bar-background', '#000000');
+      root.style.setProperty('--vcoder-colors-ui-status-bar-foreground', '#ffffff');
+      root.style.setProperty('--vcoder-colors-ui-status-bar-border', '#ffffff');
+      
+    } else {
+      // VCoder Dark theme colors (default)
+      root.style.setProperty('--vcoder-colors-background-primary', '#0d1117');
+      root.style.setProperty('--vcoder-colors-background-secondary', '#161b22');
+      root.style.setProperty('--vcoder-colors-background-tertiary', '#21262d');
+      root.style.setProperty('--vcoder-colors-foreground-primary', '#f0f6fc');
+      root.style.setProperty('--vcoder-colors-foreground-secondary', '#8b949e');
+      root.style.setProperty('--vcoder-colors-foreground-tertiary', '#6e7681');
+      root.style.setProperty('--vcoder-colors-accent-primary', '#8b5cf6');
+      root.style.setProperty('--vcoder-colors-accent-secondary', '#a78bfa');
+      root.style.setProperty('--vcoder-colors-interactive-hover', 'rgba(139, 92, 246, 0.1)');
+      root.style.setProperty('--vcoder-colors-interactive-border', '#30363d');
+      
+      // UI Components  
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-background', '#161b22');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-foreground', '#8b949e');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-activeForeground', '#f0f6fc');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-activeBackground', 'rgba(139, 92, 246, 0.2)');
+      root.style.setProperty('--vcoder-colors-ui-activity-bar-border', '#21262d');
+      
+      root.style.setProperty('--vcoder-colors-ui-sidebar-background', '#161b22');
+      root.style.setProperty('--vcoder-colors-ui-sidebar-foreground', '#8b949e');
+      root.style.setProperty('--vcoder-colors-ui-sidebar-border', '#21262d');
+      
+      root.style.setProperty('--vcoder-colors-ui-editor-background', '#0d1117');
+      root.style.setProperty('--vcoder-colors-ui-editor-foreground', '#f0f6fc');
+      
+      root.style.setProperty('--vcoder-colors-ui-status-bar-background', '#161b22');
+      root.style.setProperty('--vcoder-colors-ui-status-bar-foreground', '#8b949e');
+      root.style.setProperty('--vcoder-colors-ui-status-bar-border', '#21262d');
+    }
+  };
+
   const switchTheme = () => {
     const next = nextTheme[currentTheme];
-    setCurrentTheme(next);
     
-    // Apply theme to document root
+    // Add theme switching class for animation
+    document.body.classList.add('theme-switching');
+    
+    // Apply new theme
+    setCurrentTheme(next);
+    localStorage.setItem('vcoder-theme', next);
+    
+    // Apply theme colors
+    applyThemeColors(next);
+    
+    // Apply theme class
     if (next === 'light') {
-      document.body.className = 'vcoder-theme-light';
+      document.body.className = 'vcoder-theme-light theme-switching';
     } else if (next === 'high-contrast') {
+      document.body.className = 'vcoder-theme-highContrast theme-switching';  
+    } else {
+      document.body.className = 'vcoder-theme-dark theme-switching';
+    }
+    
+    // Remove switching class after animation
+    setTimeout(() => {
+      document.body.classList.remove('theme-switching');
+    }, 300);
+  };
+
+  // Initialize theme on component mount
+  useEffect(() => {
+    applyThemeColors(currentTheme);
+    if (currentTheme === 'light') {
+      document.body.className = 'vcoder-theme-light';
+    } else if (currentTheme === 'high-contrast') {
       document.body.className = 'vcoder-theme-highContrast';  
     } else {
       document.body.className = 'vcoder-theme-dark';
     }
-  };
+  }, []);
 
   return (
     <div className="status-item">
       <button
         onClick={switchTheme}
-        className="compact-theme-switcher p-1 rounded text-sm hover:bg-interactive-hover transition-colors duration-fast focus-ring"
-        title={`Switch theme (current: ${currentTheme})`}
-        style={{ background: 'none', border: 'none', color: 'inherit' }}
+        className="compact-theme-switcher p-1 rounded text-sm hover:bg-interactive-hover transition-all duration-fast focus-ring"
+        title={`Switch theme: ${themeLabels[nextTheme[currentTheme]]}`}
+        style={{ 
+          background: 'none', 
+          border: 'none', 
+          color: 'inherit',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minWidth: '24px',
+          height: '20px'
+        }}
       >
-        <span style={{ fontSize: '14px' }}>
+        <span style={{ fontSize: '14px', lineHeight: 1 }}>
           {themeIcons[currentTheme]}
         </span>
       </button>
