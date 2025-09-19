@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import VCoder Design System */
+@import './design-system/base.css';
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
