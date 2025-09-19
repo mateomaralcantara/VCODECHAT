@@ -23,6 +23,7 @@ function App() {
   const [codeCompletionVisible, setCodeCompletionVisible] = useState(false);
   const [errorPanelVisible, setErrorPanelVisible] = useState(false);
   const [aiGeneratorVisible, setAiGeneratorVisible] = useState(false);
+  const [chatModeActive, setChatModeActive] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300);
   const [terminalHeight, setTerminalHeight] = useState(200);
   const [currentCode, setCurrentCode] = useState('');
