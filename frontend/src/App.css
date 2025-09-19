@@ -155,7 +155,7 @@
 }
 
 .commit-section textarea {
-  @apply w-full input resize-none;
+  @apply w-full px-3 py-2 bg-background-primary border border-interactive-border rounded-md text-foreground-primary text-sm outline-none transition-all duration-fast resize-none;
   min-height: 80px;
 }
 
