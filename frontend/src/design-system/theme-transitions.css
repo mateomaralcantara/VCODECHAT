@@ -1,0 +1,217 @@
+/* VCoder Theme Transitions */
+/* Smooth transitions when switching themes */
+
+/* Transition all color properties for smooth theme switching */
+* {
+  transition: 
+    background-color var(--vcoder-animation-durations-normal) var(--vcoder-animation-easings-easeOut),
+    border-color var(--vcoder-animation-durations-normal) var(--vcoder-animation-easings-easeOut),
+    color var(--vcoder-animation-durations-normal) var(--vcoder-animation-easings-easeOut),
+    box-shadow var(--vcoder-animation-durations-normal) var(--vcoder-animation-easings-easeOut),
+    outline-color var(--vcoder-animation-durations-normal) var(--vcoder-animation-easings-easeOut);
+}
+
+/* Don't transition transforms and other properties that might cause performance issues */
+*:not([class*="animate"]):not([class*="transition"]) {
+  transition: 
+    background-color var(--vcoder-animation-durations-normal) var(--vcoder-animation-easings-easeOut),
+    border-color var(--vcoder-animation-durations-normal) var(--vcoder-animation-easings-easeOut),
+    color var(--vcoder-animation-durations-normal) var(--vcoder-animation-easings-easeOut);
+}
+
+/* Preserve existing transitions for interactive elements */
+button, 
+input, 
+textarea, 
+select,
+.activity-item,
+.file-item,
+.tab,
+.status-item {
+  transition: 
+    background-color var(--vcoder-animation-durations-fast) var(--vcoder-animation-easings-easeOut),
+    border-color var(--vcoder-animation-durations-fast) var(--vcoder-animation-easings-easeOut),
+    color var(--vcoder-animation-durations-fast) var(--vcoder-animation-easings-easeOut),
+    opacity var(--vcoder-animation-durations-fast) var(--vcoder-animation-easings-easeOut),
+    transform var(--vcoder-animation-durations-fast) var(--vcoder-animation-easings-easeOut);
+}
+
+/* Theme-specific enhancements */
+
+/* Dark theme enhancements */
+.vcoder-theme-dark {
+  /* Enhanced depth with subtle gradients */
+  --vcoder-gradient-primary: linear-gradient(135deg, var(--vcoder-colors-background-primary), var(--vcoder-colors-background-secondary));
+  --vcoder-gradient-accent: linear-gradient(135deg, var(--vcoder-colors-accent-primary), var(--vcoder-colors-accent-secondary));
+}
+
+.vcoder-theme-dark .activity-bar {
+  background: linear-gradient(180deg, var(--vcoder-colors-ui-activity-bar-background), rgba(22, 27, 34, 0.95));
+}
+
+.vcoder-theme-dark .sidebar {
+  background: linear-gradient(180deg, var(--vcoder-colors-ui-sidebar-background), rgba(22, 27, 34, 0.98));
+}
+
+.vcoder-theme-dark .status-bar {
+  background: linear-gradient(90deg, var(--vcoder-colors-ui-status-bar-background), rgba(22, 27, 34, 0.95));
+}
+
+/* Light theme enhancements */
+.vcoder-theme-light {
+  /* Clean, bright appearance */
+  --vcoder-gradient-primary: linear-gradient(135deg, var(--vcoder-colors-background-primary), rgba(246, 248, 250, 0.8));
+  --vcoder-gradient-accent: linear-gradient(135deg, var(--vcoder-colors-accent-primary), var(--vcoder-colors-accent-secondary));
+}
+
+.vcoder-theme-light .activity-bar {
+  background: linear-gradient(180deg, var(--vcoder-colors-ui-activity-bar-background), rgba(246, 248, 250, 0.95));
+  box-shadow: inset -1px 0 0 var(--vcoder-colors-ui-activity-bar-border);
+}
+
+.vcoder-theme-light .sidebar {
+  background: linear-gradient(180deg, var(--vcoder-colors-ui-sidebar-background), rgba(246, 248, 250, 0.98));
+  box-shadow: inset -1px 0 0 var(--vcoder-colors-ui-sidebar-border);
+}
+
+.vcoder-theme-light .status-bar {
+  background: linear-gradient(90deg, var(--vcoder-colors-ui-status-bar-background), rgba(246, 248, 250, 0.95));
+  box-shadow: inset 0 1px 0 var(--vcoder-colors-ui-status-bar-border);
+}
+
+/* High contrast theme enhancements */
+.vcoder-theme-highContrast {
+  /* Maximum contrast and accessibility */
+  --vcoder-gradient-primary: none;
+  --vcoder-gradient-accent: none;
+}
+
+.vcoder-theme-highContrast * {
+  /* Remove all gradients and shadows for high contrast */
+  background-image: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.vcoder-theme-highContrast .activity-bar,
+.vcoder-theme-highContrast .sidebar,
+.vcoder-theme-highContrast .status-bar {
+  border-width: 2px;
+  border-style: solid;
+}
+
+.vcoder-theme-highContrast button,
+.vcoder-theme-highContrast input,
+.vcoder-theme-highContrast textarea {
+  border-width: 2px;
+  border-style: solid;
+  outline-offset: 2px;
+}
+
+.vcoder-theme-highContrast .activity-item:focus,
+.vcoder-theme-highContrast .file-item:focus,
+.vcoder-theme-highContrast .tab:focus,
+.vcoder-theme-highContrast .status-item:focus {
+  outline: 3px solid var(--vcoder-colors-accent-primary);
+  outline-offset: 2px;
+}
+
+/* Theme switching animation */
+.theme-switching {
+  pointer-events: none;
+}
+
+.theme-switching * {
+  transition-duration: var(--vcoder-animation-durations-slow) !important;
+}
+
+/* Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .vcoder-no-animations * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Focus indicators for better accessibility */
+.vcoder-theme-dark :focus-visible {
+  outline: 2px solid var(--vcoder-colors-accent-primary);
+  outline-offset: 2px;
+}
+
+.vcoder-theme-light :focus-visible {
+  outline: 2px solid var(--vcoder-colors-accent-primary);
+  outline-offset: 2px;
+}
+
+.vcoder-theme-highContrast :focus-visible {
+  outline: 3px solid var(--vcoder-colors-accent-primary);
+  outline-offset: 3px;
+}
+
+/* Enhanced hover states per theme */
+.vcoder-theme-dark .activity-item:hover {
+  background: radial-gradient(circle at center, var(--vcoder-colors-interactive-hover), transparent 70%);
+}
+
+.vcoder-theme-light .activity-item:hover {
+  background: var(--vcoder-colors-interactive-hover);
+  box-shadow: 0 2px 4px rgba(9, 105, 218, 0.1);
+}
+
+.vcoder-theme-highContrast .activity-item:hover {
+  background: var(--vcoder-colors-interactive-hover);
+  border: 2px solid var(--vcoder-colors-interactive-border-hover);
+}
+
+/* Syntax highlighting transitions */
+.code-editor {
+  transition: background-color var(--vcoder-animation-durations-normal) var(--vcoder-animation-easings-easeOut);
+}
+
+/* Welcome screen theme-specific styles */
+.vcoder-theme-dark .welcome-content h2 {
+  background: linear-gradient(135deg, var(--vcoder-colors-accent-primary), var(--vcoder-colors-accent-tertiary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vcoder-theme-light .welcome-content h2 {
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+.vcoder-theme-highContrast .welcome-content h2 {
+  color: var(--vcoder-colors-accent-primary);
+  text-decoration: underline;
+}
+
+/* Theme switcher button enhancements */
+.compact-theme-switcher {
+  position: relative;
+  overflow: hidden;
+}
+
+.compact-theme-switcher::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--vcoder-animation-durations-slow) var(--vcoder-animation-easings-easeOut);
+}
+
+.compact-theme-switcher:hover::before {
+  left: 100%;
+}
+
+.vcoder-theme-highContrast .compact-theme-switcher::before {
+  display: none;
+}
