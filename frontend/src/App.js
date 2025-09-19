@@ -164,36 +164,232 @@ function App() {
       
       {/* Simple Chat Mode */}
       <div id="simple-chat" className="simple-chat-mode" style={{display: 'none'}}>
-        <div className="simple-chat-box">
-          <button className="simple-chat-close" onClick={() => {
-            document.getElementById('simple-chat').style.display = 'none';
-            document.body.classList.remove('chat-active');
-          }}>✕</button>
-          
-          <div className="simple-chat-title">VCoder AI Chat</div>
-          
-          <textarea 
-            className="simple-chat-input" 
-            placeholder="Escribe tu pregunta aquí... ¿Qué necesitas ayuda con tu código?"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && e.ctrlKey) {
-                alert('Mensaje enviado: ' + e.target.value);
-                e.target.value = '';
-              }
-            }}
-          ></textarea>
-          
-          <button className="simple-chat-button" onClick={(e) => {
-            const input = e.target.parentElement.querySelector('textarea');
-            if(input.value.trim()) {
-              alert('Mensaje enviado: ' + input.value);
+        <button className="simple-chat-close" onClick={() => {
+          document.getElementById('simple-chat').style.display = 'none';
+          document.body.classList.remove('chat-active');
+        }}>✕</button>
+        
+        <div className="simple-chat-container">
+          {/* Chat Panel */}
+          <div className="simple-chat-box">
+            <div className="simple-chat-title">💬 VCoder AI Chat</div>
+            
+            <div id="chat-messages" className="simple-chat-messages">
+              <div className="chat-message assistant">
+                ¡Hola! Soy VCoder AI. Dime qué código necesitas y lo generaré paso a paso para ti.
+              </div>
+            </div>
+            
+            <textarea 
+              id="chat-input"
+              className="simple-chat-input" 
+              placeholder="Ej: Crea una función que valide emails, Haz un componente React de contador, etc."
+            ></textarea>
+            
+            <button className="simple-chat-button" onClick={() => {
+              const input = document.getElementById('chat-input');
+              const messagesDiv = document.getElementById('chat-messages');
+              const codeOutput = document.getElementById('code-output');
+              const codeTitle = document.getElementById('code-title');
+              
+              if(!input.value.trim()) return;
+              
+              // Add user message
+              const userMsg = document.createElement('div');
+              userMsg.className = 'chat-message user';
+              userMsg.textContent = input.value;
+              messagesDiv.appendChild(userMsg);
+              
+              const request = input.value;
               input.value = '';
-            }
-          }}>
-            Enviar mensaje (Ctrl+Enter)
-          </button>
+              
+              // Show typing indicator
+              const typingDiv = document.createElement('div');
+              typingDiv.className = 'typing-indicator';
+              typingDiv.innerHTML = `
+                <div class='typing-dots'>
+                  <div class='typing-dot'></div>
+                  <div class='typing-dot'></div>
+                  <div class='typing-dot'></div>
+                </div>
+                Generando código...
+              `;
+              messagesDiv.appendChild(typingDiv);
+              messagesDiv.scrollTop = messagesDiv.scrollHeight;
+              
+              // Update code title
+              codeTitle.innerHTML = '🔄 Generando código...';
+              codeOutput.innerHTML = '';
+              
+              // Simulate code generation
+              generateCode(request, messagesDiv, typingDiv, codeOutput, codeTitle);
+            }}>
+              Generar Código
+            </button>
+          </div>
+          
+          {/* Code Panel */}
+          <div className="simple-code-box">
+            <div id="code-title" className="simple-code-title">
+              📝 El código aparecerá aquí
+            </div>
+            
+            <div id="code-output" className="simple-code-output">
+              // Tu código generado aparecerá aquí paso a paso...
+              // 
+              // Ejemplo:
+              // 1. Analizando la solicitud...
+              // 2. Estructurando el código...
+              // 3. Generando funciones...
+              // 4. Añadiendo comentarios...
+              // 5. ¡Listo!
+            </div>
+          </div>
         </div>
       </div>
+
+      <script dangerouslySetInnerHTML={{__html: `
+        function generateCode(request, messagesDiv, typingDiv, codeOutput, codeTitle) {
+          const codeExamples = {
+            'email': \`// Función para validar emails
+function validateEmail(email) {
+  const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Ejemplo de uso
+const email = "test@example.com";
+console.log(validateEmail(email)); // true\`,
+
+            'contador': \`// Componente React Contador
+import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div style={{ textAlign: 'center', padding: '20px' }}>
+      <h2>Contador: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>
+        Incrementar
+      </button>
+      <button onClick={() => setCount(count - 1)}>
+        Decrementar
+      </button>
+      <button onClick={() => setCount(0)}>
+        Reset
+      </button>
+    </div>
+  );
+}
+
+export default Counter;\`,
+
+            'api': \`// Función para hacer peticiones API
+async function fetchData(url, options = {}) {
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+      },
+      ...options
+    });
+    
+    if (!response.ok) {
+      throw new Error(\`HTTP error! status: \${response.status}\`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+}
+
+// Ejemplo de uso
+fetchData('https://api.example.com/data')
+  .then(data => console.log(data))
+  .catch(error => console.error(error));\`,
+
+            'default': \`// Código generado basado en tu solicitud
+function exampleFunction() {
+  // Esta función fue generada automáticamente
+  console.log("Hola desde VCoder AI!");
+  
+  // Aquí iría tu lógica específica
+  return "Código generado exitosamente";
+}
+
+// Llamada a la función
+exampleFunction();\`
+          };
+          
+          // Determine which code to generate
+          let codeToGenerate = codeExamples.default;
+          const requestLower = request.toLowerCase();
+          
+          if (requestLower.includes('email') || requestLower.includes('validar')) {
+            codeToGenerate = codeExamples.email;
+          } else if (requestLower.includes('contador') || requestLower.includes('counter') || requestLower.includes('react')) {
+            codeToGenerate = codeExamples.contador;
+          } else if (requestLower.includes('api') || requestLower.includes('fetch') || requestLower.includes('peticion')) {
+            codeToGenerate = codeExamples.api;
+          }
+          
+          // Steps for code generation
+          const steps = [
+            "Analizando tu solicitud...",
+            "Estructurando el código...", 
+            "Generando funciones principales...",
+            "Añadiendo validaciones...",
+            "Optimizando el código...",
+            "Añadiendo comentarios explicativos...",
+            "¡Código generado exitosamente!"
+          ];
+          
+          let currentStep = 0;
+          const stepInterval = setInterval(() => {
+            if (currentStep < steps.length) {
+              codeTitle.innerHTML = \`🔄 \${steps[currentStep]}\`;
+              currentStep++;
+            } else {
+              clearInterval(stepInterval);
+              codeTitle.innerHTML = '✅ Código completado';
+            }
+          }, 800);
+          
+          // Generate code line by line
+          const lines = codeToGenerate.split('\\n');
+          let currentLine = 0;
+          
+          setTimeout(() => {
+            const lineInterval = setInterval(() => {
+              if (currentLine < lines.length) {
+                const lineDiv = document.createElement('div');
+                lineDiv.className = 'code-line-new';
+                lineDiv.textContent = lines[currentLine];
+                codeOutput.appendChild(lineDiv);
+                codeOutput.scrollTop = codeOutput.scrollHeight;
+                currentLine++;
+              } else {
+                clearInterval(lineInterval);
+                
+                // Remove typing indicator and add completion message
+                typingDiv.remove();
+                const completionMsg = document.createElement('div');
+                completionMsg.className = 'chat-message assistant';
+                completionMsg.innerHTML = \`✅ ¡Código generado! He creado el código que solicitaste. Puedes verlo en el panel de la derecha. ¿Necesitas alguna modificación o explicación?\`;
+                messagesDiv.appendChild(completionMsg);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+              }
+            }, 100);
+          }, 2000);
+        }
+      `}}>
+      </script>
 
       {chatModeActive ? (
         <ChatMode onClose={() => setChatModeActive(false)} />
