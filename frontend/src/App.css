@@ -566,7 +566,7 @@
 }
 
 .chatbot-input textarea, .generator-input textarea {
-  @apply flex-1 input resize-none;
+  @apply flex-1 px-3 py-2 bg-background-primary border border-interactive-border rounded-md text-foreground-primary text-sm outline-none transition-all duration-fast resize-none;
 }
 
 .chatbot-input button, .generator-input button {
