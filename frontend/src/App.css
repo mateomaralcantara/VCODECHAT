@@ -402,7 +402,7 @@
 }
 
 .welcome-actions button {
-  @apply btn justify-start;
+  @apply inline-flex items-center justify-start gap-2 px-4 py-3 border border-interactive-border rounded-md bg-accent-primary text-foreground-inverse font-medium text-sm cursor-pointer transition-all duration-fast;
 }
 
 /* Terminal */
