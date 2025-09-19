@@ -84,6 +84,112 @@
   @apply truncate;
 }
 
+/* Search Panel */
+.search-panel {
+  @apply h-full flex flex-col;
+  color: var(--vcoder-colors-ui-sidebar-foreground);
+}
+
+.search-header {
+  @apply p-3 text-xs font-semibold tracking-wide uppercase;
+  color: var(--vcoder-colors-foreground-secondary);
+  border-bottom: 1px solid var(--vcoder-colors-ui-sidebar-border);
+}
+
+.search-content {
+  @apply flex-1 p-3 space-y-3;
+}
+
+.search-input-group {
+  @apply flex gap-2;
+}
+
+.search-input-group input {
+  @apply flex-1 input;
+}
+
+.search-input-group button {
+  @apply btn btn-sm px-3;
+}
+
+.search-filters {
+  @apply space-y-2;
+}
+
+.search-filters input {
+  @apply w-full input text-xs;
+}
+
+.search-results {
+  @apply space-y-2;
+}
+
+.search-result {
+  @apply p-2 rounded hover:bg-interactive-hover cursor-pointer transition-colors duration-fast;
+}
+
+.result-file {
+  @apply font-medium text-sm;
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+.result-line {
+  @apply text-xs mt-1;
+  color: var(--vcoder-colors-foreground-secondary);
+}
+
+/* Source Control Panel */
+.source-control-panel {
+  @apply h-full flex flex-col;
+  color: var(--vcoder-colors-ui-sidebar-foreground);
+}
+
+.source-control-header {
+  @apply p-3 text-xs font-semibold tracking-wide uppercase;
+  color: var(--vcoder-colors-foreground-secondary);
+  border-bottom: 1px solid var(--vcoder-colors-ui-sidebar-border);
+}
+
+.source-control-content {
+  @apply flex-1 p-3 space-y-4;
+}
+
+.commit-section textarea {
+  @apply w-full input resize-none;
+  min-height: 80px;
+}
+
+.commit-button {
+  @apply btn btn-primary w-full mt-2;
+}
+
+.changes-header {
+  @apply text-xs font-semibold tracking-wide uppercase mb-2;
+  color: var(--vcoder-colors-foreground-secondary);
+}
+
+.change-item {
+  @apply flex items-center gap-2 p-1 rounded hover:bg-interactive-hover transition-colors duration-fast;
+}
+
+.change-status {
+  @apply text-sm;
+}
+
+.change-file {
+  @apply flex-1 text-sm;
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+.change-actions {
+  @apply flex gap-1;
+}
+
+.change-actions button {
+  @apply p-1 rounded text-xs opacity-70 hover:opacity-100 hover:bg-interactive-hover transition-all duration-fast;
+  color: var(--vcoder-colors-foreground-secondary);
+}
+
 /* Sidebar */
 .sidebar {
   background-color: #252526;
