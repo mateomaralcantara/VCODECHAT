@@ -243,6 +243,9 @@ function App() {
           )}
         </>
       )}
+      
+      {/* Floating Chat Toggle Button */}
+      <ChatToggle />
     </div>
   );
 }
