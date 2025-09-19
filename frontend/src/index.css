@@ -4,6 +4,7 @@
 
 /* Import VCoder Design System */
 @import './design-system/base.css';
+@import './simple-chat.css';
 
 body {
     margin: 0;
