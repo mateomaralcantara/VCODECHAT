@@ -570,7 +570,7 @@
 }
 
 .chatbot-input button, .generator-input button {
-  @apply btn btn-primary self-end;
+  @apply inline-flex items-center justify-center gap-2 px-4 py-2 border border-accent-primary rounded-md bg-accent-primary text-foreground-inverse font-medium text-sm cursor-pointer transition-all duration-fast self-end;
 }
 
 /* Error Panel Specific */
