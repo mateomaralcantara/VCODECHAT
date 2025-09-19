@@ -717,6 +717,8 @@ export const StatusBar = ({ selectedFile, cursorPosition, errors, onTerminalTogg
           <span>{selectedFile ? getLanguage(selectedFile.path) : 'Plain Text'}</span>
         </div>
         
+        <CompactThemeSwitcher />
+        
         <div className="status-item">
           <span className="status-icon">🔔</span>
         </div>
