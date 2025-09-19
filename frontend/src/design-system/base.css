@@ -1,0 +1,347 @@
+/* VCoder Base Styles */
+/* Global styles and CSS custom property definitions */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+/* Base reset and global styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--vcoder-typography-fontFamilies-ui);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--vcoder-colors-background-primary);
+  color: var(--vcoder-colors-foreground-primary);
+  overflow: hidden;
+  font-family: var(--vcoder-typography-fontFamilies-ui);
+}
+
+/* Selection styles */
+::selection {
+  background-color: var(--vcoder-colors-ui-editor-selection);
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+::-moz-selection {
+  background-color: var(--vcoder-colors-ui-editor-selection);
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+/* Focus styles */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--vcoder-colors-interactive-focus);
+  outline-offset: 2px;
+  border-radius: var(--vcoder-radius-md);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--vcoder-colors-interactive-border);
+  border-radius: 4px;
+  border: 1px solid var(--vcoder-colors-background-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--vcoder-colors-interactive-border-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--vcoder-colors-background-primary);
+}
+
+/* Custom scrollbar for thin scrollbars */
+.thin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+/* Disable custom scrollbars when preference is off */
+.vcoder-no-custom-scrollbars ::-webkit-scrollbar {
+  display: none;
+}
+
+.vcoder-no-custom-scrollbars {
+  scrollbar-width: none;
+}
+
+/* Animation preferences */
+.vcoder-no-animations,
+.vcoder-no-animations *,
+.vcoder-no-animations *::before,
+.vcoder-no-animations *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0.01ms !important;
+}
+
+/* Glass effects */
+.glass-effect {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: var(--vcoder-colors-background-glass);
+  border: 1px solid var(--vcoder-colors-interactive-border);
+}
+
+.vcoder-no-glass .glass-effect {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background-color: var(--vcoder-colors-background-secondary);
+}
+
+/* Rounded corners preference */
+.vcoder-no-rounded * {
+  border-radius: 0 !important;
+}
+
+/* High contrast adjustments */
+.vcoder-theme-highContrast {
+  --vcoder-shadows-sm: none;
+  --vcoder-shadows-base: none;
+  --vcoder-shadows-md: none;
+  --vcoder-shadows-lg: none;
+  --vcoder-shadows-xl: none;
+}
+
+.vcoder-theme-highContrast .glass-effect {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background-color: var(--vcoder-colors-background-secondary);
+  border: 2px solid var(--vcoder-colors-interactive-border);
+}
+
+/* VSCode specific layout classes */
+.vscode-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--vcoder-colors-background-primary);
+  font-family: var(--vcoder-typography-fontFamilies-ui);
+  font-size: var(--vcoder-typography-fontSizes-sm);
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+.vscode-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Activity Bar styles */
+.activity-bar {
+  width: 48px;
+  background-color: var(--vcoder-colors-ui-activity-bar-bg);
+  border-right: 1px solid var(--vcoder-colors-ui-activity-bar-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--vcoder-spacing-2) 0;
+  z-index: var(--vcoder-zIndex-20);
+}
+
+.activity-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vcoder-spacing-1);
+}
+
+.activity-item {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--vcoder-radius-md);
+  color: var(--vcoder-colors-ui-activity-bar-fg);
+  cursor: pointer;
+  transition: all var(--vcoder-animation-durations-fast) var(--vcoder-animation-easings-easeOut);
+  position: relative;
+}
+
+.activity-item:hover {
+  background-color: var(--vcoder-colors-interactive-hover);
+  color: var(--vcoder-colors-ui-activity-bar-active-fg);
+}
+
+.activity-item.active {
+  background-color: var(--vcoder-colors-ui-activity-bar-active-bg);
+  color: var(--vcoder-colors-ui-activity-bar-active-fg);
+}
+
+.activity-item.active::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 16px;
+  background-color: var(--vcoder-colors-accent-primary);
+  border-radius: 0 2px 2px 0;
+}
+
+.activity-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Sidebar styles */
+.sidebar {
+  background-color: var(--vcoder-colors-ui-sidebar-bg);
+  border-right: 1px solid var(--vcoder-colors-ui-sidebar-border);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 200px;
+  max-width: 600px;
+}
+
+.sidebar-resizer {
+  position: absolute;
+  top: 0;
+  right: -2px;
+  width: 4px;
+  height: 100%;
+  cursor: col-resize;
+  background-color: transparent;
+  z-index: var(--vcoder-zIndex-10);
+}
+
+.sidebar-resizer:hover {
+  background-color: var(--vcoder-colors-accent-primary);
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Common button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vcoder-spacing-2);
+  padding: var(--vcoder-spacing-2) var(--vcoder-spacing-4);
+  border: 1px solid var(--vcoder-colors-interactive-border);
+  border-radius: var(--vcoder-radius-md);
+  background-color: var(--vcoder-colors-background-secondary);
+  color: var(--vcoder-colors-foreground-primary);
+  font-family: var(--vcoder-typography-fontFamilies-ui);
+  font-size: var(--vcoder-typography-fontSizes-sm);
+  font-weight: var(--vcoder-typography-fontWeights-medium);
+  cursor: pointer;
+  transition: all var(--vcoder-animation-durations-fast) var(--vcoder-animation-easings-easeOut);
+  outline: none;
+}
+
+.btn:hover {
+  background-color: var(--vcoder-colors-interactive-hover);
+  border-color: var(--vcoder-colors-interactive-border-hover);
+}
+
+.btn:focus-visible {
+  box-shadow: var(--vcoder-shadows-outline);
+}
+
+.btn:active {
+  background-color: var(--vcoder-colors-interactive-active);
+}
+
+.btn:disabled {
+  opacity: var(--vcoder-opacity-50);
+  cursor: not-allowed;
+  color: var(--vcoder-colors-interactive-disabled);
+}
+
+.btn-primary {
+  background-color: var(--vcoder-colors-accent-primary);
+  border-color: var(--vcoder-colors-accent-primary);
+  color: var(--vcoder-colors-foreground-inverse);
+}
+
+.btn-primary:hover {
+  background-color: var(--vcoder-colors-accent-secondary);
+  border-color: var(--vcoder-colors-accent-secondary);
+}
+
+/* Input styles */
+.input {
+  padding: var(--vcoder-spacing-2) var(--vcoder-spacing-3);
+  border: 1px solid var(--vcoder-colors-interactive-border);
+  border-radius: var(--vcoder-radius-md);
+  background-color: var(--vcoder-colors-background-primary);
+  color: var(--vcoder-colors-foreground-primary);
+  font-family: var(--vcoder-typography-fontFamilies-ui);
+  font-size: var(--vcoder-typography-fontSizes-sm);
+  outline: none;
+  transition: all var(--vcoder-animation-durations-fast) var(--vcoder-animation-easings-easeOut);
+}
+
+.input:hover {
+  border-color: var(--vcoder-colors-interactive-border-hover);
+}
+
+.input:focus {
+  border-color: var(--vcoder-colors-accent-primary);
+  box-shadow: 0 0 0 1px var(--vcoder-colors-accent-primary);
+}
+
+.input::placeholder {
+  color: var(--vcoder-colors-foreground-tertiary);
+}
+
+/* Utility classes */
+.text-gradient {
+  background: linear-gradient(135deg, var(--vcoder-colors-accent-primary), var(--vcoder-colors-accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.border-gradient {
+  position: relative;
+  background: var(--vcoder-colors-background-primary);
+}
+
+.border-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--vcoder-colors-accent-primary), var(--vcoder-colors-accent-secondary));
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
