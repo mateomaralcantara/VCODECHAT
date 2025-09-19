@@ -573,6 +573,67 @@
   @apply btn btn-primary self-end;
 }
 
+/* Error Panel Specific */
+.error-item {
+  @apply flex items-start gap-3 p-3 rounded hover:bg-interactive-hover transition-colors duration-fast;
+}
+
+.error-icon {
+  @apply text-base flex-shrink-0;
+}
+
+.error-details {
+  @apply flex-1;
+}
+
+.error-message {
+  @apply font-medium text-sm;
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+.error-location {
+  @apply text-xs mt-1;
+  color: var(--vcoder-colors-foreground-secondary);
+}
+
+.error-item.error .error-icon {
+  color: var(--vcoder-colors-semantic-error);
+}
+
+.error-item.warning .error-icon {
+  color: var(--vcoder-colors-semantic-warning);
+}
+
+.error-item.info .error-icon {
+  color: var(--vcoder-colors-semantic-info);
+}
+
+/* AI Code Generator */
+.generating-indicator {
+  @apply text-center py-8;
+  color: var(--vcoder-colors-foreground-secondary);
+}
+
+.generated-code {
+  @apply border-t;
+  border-color: var(--vcoder-colors-interactive-border);
+}
+
+.code-header {
+  @apply flex items-center justify-between p-3 border-b;
+  background-color: var(--vcoder-colors-background-secondary);
+  border-color: var(--vcoder-colors-interactive-border);
+}
+
+.code-actions {
+  @apply flex gap-2;
+}
+
+.code-preview {
+  @apply p-4 font-mono text-sm bg-background-primary overflow-x-auto custom-scrollbar;
+  color: var(--vcoder-colors-ui-editor-foreground);
+}
+
 /* Sidebar */
 .sidebar {
   background-color: #252526;
