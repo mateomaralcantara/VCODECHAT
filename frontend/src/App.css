@@ -288,6 +288,95 @@
   color: var(--vcoder-colors-foreground-secondary);
 }
 
+.editor-content {
+  @apply flex-1 flex;
+}
+
+.editor-gutter {
+  @apply flex bg-background-secondary border-r;
+  border-color: var(--vcoder-colors-ui-tabs-border);
+}
+
+.line-numbers {
+  @apply px-3 py-2 text-right font-mono text-xs select-none;
+  color: var(--vcoder-colors-foreground-tertiary);
+  background-color: var(--vcoder-colors-background-secondary);
+}
+
+.line-number {
+  @apply leading-5;
+  min-height: 20px;
+}
+
+.error-markers {
+  @apply relative w-2;
+}
+
+.error-marker {
+  @apply absolute w-1 h-5 rounded-r;
+}
+
+.error-marker.error {
+  background-color: var(--vcoder-colors-semantic-error);
+}
+
+.error-marker.warning {
+  background-color: var(--vcoder-colors-semantic-warning);
+}
+
+.error-marker.info {
+  background-color: var(--vcoder-colors-semantic-info);
+}
+
+.editor-main {
+  @apply flex-1 relative;
+}
+
+.code-editor {
+  @apply w-full h-full p-4 font-mono text-sm resize-none border-none outline-none;
+  background-color: var(--vcoder-colors-ui-editor-background);
+  color: var(--vcoder-colors-ui-editor-foreground);
+  line-height: 1.4;
+}
+
+.code-editor::selection {
+  background-color: var(--vcoder-colors-ui-editor-selection);
+}
+
+.completions-popup {
+  @apply absolute z-popover bg-background-overlay border border-interactive-border rounded-md shadow-lg p-2 space-y-1;
+  top: 100px;
+  left: 100px;
+  min-width: 200px;
+}
+
+.completion-item {
+  @apply flex items-center justify-between px-3 py-2 rounded cursor-pointer hover:bg-interactive-hover transition-colors duration-fast;
+}
+
+.completion-text {
+  @apply font-mono text-sm;
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+.completion-detail {
+  @apply text-xs;
+  color: var(--vcoder-colors-foreground-secondary);
+}
+
+.editor-minimap {
+  @apply w-20 bg-background-secondary border-l;
+  border-color: var(--vcoder-colors-ui-tabs-border);
+}
+
+.minimap-content {
+  @apply p-2;
+}
+
+.minimap-line {
+  @apply h-px bg-foreground-tertiary mb-px;
+}
+
 /* Sidebar */
 .sidebar {
   background-color: #252526;
