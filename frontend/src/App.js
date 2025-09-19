@@ -364,7 +364,7 @@ exampleFunction();`
               codeOutput.innerHTML = '';
               
               // Simulate code generation
-              generateCode(request, messagesDiv, typingDiv, codeOutput, codeTitle);
+              window.generateCode(request, messagesDiv, typingDiv, codeOutput, codeTitle);
             }}>
               Generar Código
             </button>
