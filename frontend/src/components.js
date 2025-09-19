@@ -633,7 +633,7 @@ export const Terminal = ({ height, onHeightChange, onClose }) => {
   );
 };
 
-// Status Bar Component
+// Status Bar Component  
 export const StatusBar = ({ selectedFile, cursorPosition, errors, onTerminalToggle }) => {
   const errorCount = errors.filter(e => e.severity === 'error').length;
   const warningCount = errors.filter(e => e.severity === 'warning').length;
@@ -669,8 +669,6 @@ export const StatusBar = ({ selectedFile, cursorPosition, errors, onTerminalTogg
         <div className="status-item">
           <span>{selectedFile ? getLanguage(selectedFile.path) : 'Plain Text'}</span>
         </div>
-        
-        <CompactThemeSwitcher />
         
         <div className="status-item">
           <span className="status-icon">🔔</span>
