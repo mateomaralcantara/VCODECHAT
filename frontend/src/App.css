@@ -482,6 +482,97 @@
   color: var(--vcoder-colors-ui-terminal-foreground);
 }
 
+/* Status Bar */
+.status-bar {
+  @apply flex items-center justify-between px-4 py-1 text-xs border-t;
+  background-color: var(--vcoder-colors-ui-status-bar-background);
+  color: var(--vcoder-colors-ui-status-bar-foreground);
+  border-color: var(--vcoder-colors-ui-status-bar-border);
+  height: 24px;
+}
+
+.status-left, .status-right {
+  @apply flex items-center gap-4;
+}
+
+.status-item {
+  @apply flex items-center gap-1 px-2 py-1 rounded cursor-pointer hover:bg-interactive-hover transition-colors duration-fast;
+}
+
+.status-icon {
+  @apply text-xs;
+}
+
+/* Modal Components */
+.chatbot-container, .completion-modal, .error-panel, .ai-generator-container {
+  @apply fixed inset-4 z-modal bg-background-overlay border border-interactive-border rounded-lg shadow-lg flex flex-col;
+  max-width: 600px;
+  max-height: 80vh;
+  margin: auto;
+}
+
+.chatbot-header, .completion-header, .error-header, .ai-generator-header {
+  @apply flex items-center justify-between p-4 border-b;
+  background-color: var(--vcoder-colors-background-secondary);
+  border-color: var(--vcoder-colors-interactive-border);
+}
+
+.chatbot-header span, .completion-header span, .error-header span, .ai-generator-header span {
+  @apply font-semibold;
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+.chatbot-messages, .completion-list, .error-list {
+  @apply flex-1 p-4 overflow-y-auto custom-scrollbar;
+}
+
+.message {
+  @apply mb-4 max-w-[80%];
+}
+
+.message.user {
+  @apply ml-auto;
+}
+
+.message.bot {
+  @apply mr-auto;
+}
+
+.message-content {
+  @apply p-3 rounded-lg;
+}
+
+.message.user .message-content {
+  background-color: var(--vcoder-colors-accent-primary);
+  color: var(--vcoder-colors-foreground-inverse);
+}
+
+.message.bot .message-content {
+  background-color: var(--vcoder-colors-background-tertiary);
+  color: var(--vcoder-colors-foreground-primary);
+}
+
+.typing {
+  @apply flex gap-1;
+}
+
+.typing span {
+  @apply w-2 h-2 bg-foreground-secondary rounded-full animate-pulse;
+}
+
+.chatbot-input, .generator-input {
+  @apply p-4 border-t flex gap-2;
+  border-color: var(--vcoder-colors-interactive-border);
+}
+
+.chatbot-input textarea, .generator-input textarea {
+  @apply flex-1 input resize-none;
+}
+
+.chatbot-input button, .generator-input button {
+  @apply btn btn-primary self-end;
+}
+
 /* Sidebar */
 .sidebar {
   background-color: #252526;
