@@ -160,81 +160,87 @@ function App() {
 
   return (
     <div className="vscode-container" onKeyDown={handleKeyDown}>
-      <div className="vscode-layout">
-        <ActivityBar 
-          activeView={activeView}
-          onViewChange={setActiveView}
-          onChatToggle={() => setChatBotVisible(!chatBotVisible)}
-          onAIGeneratorToggle={() => setAiGeneratorVisible(!aiGeneratorVisible)}
-        />
-        
-        <SideBar 
-          activeView={activeView}
-          fileSystem={fileSystem}
-          onFileOpen={openFile}
-          width={sidebarWidth}
-          onWidthChange={setSidebarWidth}
-          errors={errors}
-          onErrorClick={() => setErrorPanelVisible(!errorPanelVisible)}
-        />
-        
-        <div className="main-content">
-          <Editor 
-            openFiles={openFiles}
-            activeTab={activeTab}
+      {chatModeActive ? (
+        <ChatMode onClose={() => setChatModeActive(false)} />
+      ) : (
+        <>
+          <div className="vscode-layout">
+            <ActivityBar 
+              activeView={activeView}
+              onViewChange={setActiveView}
+              onChatToggle={() => setChatModeActive(true)}
+              onAIGeneratorToggle={() => setAiGeneratorVisible(!aiGeneratorVisible)}
+            />
+            
+            <SideBar 
+              activeView={activeView}
+              fileSystem={fileSystem}
+              onFileOpen={openFile}
+              width={sidebarWidth}
+              onWidthChange={setSidebarWidth}
+              errors={errors}
+              onErrorClick={() => setErrorPanelVisible(!errorPanelVisible)}
+            />
+            
+            <div className="main-content">
+              <Editor 
+                openFiles={openFiles}
+                activeTab={activeTab}
+                selectedFile={selectedFile}
+                onTabChange={setActiveTab}
+                onFileClose={closeFile}
+                onContentChange={updateFileContent}
+                onCursorChange={setCursorPosition}
+                completions={completions}
+                onCompletionRequest={generateCompletions}
+                errors={errors}
+              />
+              
+              {terminalVisible && (
+                <Terminal 
+                  height={terminalHeight}
+                  onHeightChange={setTerminalHeight}
+                  onClose={() => setTerminalVisible(false)}
+                />
+              )}
+            </div>
+          </div>
+          
+          <StatusBar 
             selectedFile={selectedFile}
-            onTabChange={setActiveTab}
-            onFileClose={closeFile}
-            onContentChange={updateFileContent}
-            onCursorChange={setCursorPosition}
-            completions={completions}
-            onCompletionRequest={generateCompletions}
+            cursorPosition={cursorPosition}
             errors={errors}
+            onTerminalToggle={() => setTerminalVisible(!terminalVisible)}
           />
           
-          {terminalVisible && (
-            <Terminal 
-              height={terminalHeight}
-              onHeightChange={setTerminalHeight}
-              onClose={() => setTerminalVisible(false)}
+          {chatBotVisible && (
+            <ChatBot 
+              onClose={() => setChatBotVisible(false)}
+              currentCode={currentCode}
             />
           )}
-        </div>
-      </div>
-      
-      <StatusBar 
-        selectedFile={selectedFile}
-        cursorPosition={cursorPosition}
-        errors={errors}
-        onTerminalToggle={() => setTerminalVisible(!terminalVisible)}
-      />
-      
-      {chatBotVisible && (
-        <ChatBot 
-          onClose={() => setChatBotVisible(false)}
-          currentCode={currentCode}
-        />
-      )}
-      
-      {codeCompletionVisible && (
-        <CodeCompletionModal 
-          completions={completions}
-          onClose={() => setCodeCompletionVisible(false)}
-        />
-      )}
-      
-      {errorPanelVisible && (
-        <ErrorPanel 
-          errors={errors}
-          onClose={() => setErrorPanelVisible(false)}
-        />
-      )}
-      
-      {aiGeneratorVisible && (
-        <AICodeGenerator 
-          onClose={() => setAiGeneratorVisible(false)}
-          onCodeGenerated={(code) => updateFileContent(activeTab, code)}
-        />
+          
+          {codeCompletionVisible && (
+            <CodeCompletionModal 
+              completions={completions}
+              onClose={() => setCodeCompletionVisible(false)}
+            />
+          )}
+          
+          {errorPanelVisible && (
+            <ErrorPanel 
+              errors={errors}
+              onClose={() => setErrorPanelVisible(false)}
+            />
+          )}
+          
+          {aiGeneratorVisible && (
+            <AICodeGenerator 
+              onClose={() => setAiGeneratorVisible(false)}
+              onCodeGenerated={(code) => updateFileContent(activeTab, code)}
+            />
+          )}
+        </>
       )}
     </div>
   );
