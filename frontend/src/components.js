@@ -1,5 +1,52 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+// Compact theme switcher component
+const CompactThemeSwitcher = () => {
+  // We'll use a simple state since we don't have useTheme yet
+  const [currentTheme, setCurrentTheme] = useState('dark');
+  
+  const themeIcons = {
+    'dark': '🌙',
+    'light': '☀️',
+    'high-contrast': '🔆'
+  };
+
+  const nextTheme = {
+    'dark': 'light',
+    'light': 'high-contrast',
+    'high-contrast': 'dark'
+  };
+
+  const switchTheme = () => {
+    const next = nextTheme[currentTheme];
+    setCurrentTheme(next);
+    
+    // Apply theme to document root
+    if (next === 'light') {
+      document.body.className = 'vcoder-theme-light';
+    } else if (next === 'high-contrast') {
+      document.body.className = 'vcoder-theme-highContrast';  
+    } else {
+      document.body.className = 'vcoder-theme-dark';
+    }
+  };
+
+  return (
+    <div className="status-item">
+      <button
+        onClick={switchTheme}
+        className="compact-theme-switcher p-1 rounded text-sm hover:bg-interactive-hover transition-colors duration-fast focus-ring"
+        title={`Switch theme (current: ${currentTheme})`}
+        style={{ background: 'none', border: 'none', color: 'inherit' }}
+      >
+        <span style={{ fontSize: '14px' }}>
+          {themeIcons[currentTheme]}
+        </span>
+      </button>
+    </div>
+  );
+};
+
 // Activity Bar Component
 export const ActivityBar = ({ activeView, onViewChange, onChatToggle, onAIGeneratorToggle }) => {
   const activities = [
